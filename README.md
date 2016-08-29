@@ -34,8 +34,13 @@ Documentation: Read [IBM Watson Developer Cloud](https://www.ibm.com/watson/deve
 3. Go to **examples** and deep into the codes for *natural_language_classifier.v1.js*.
 4. Replace *username* and *password* Service Credentials on the previous stage.
 5. There is a bug in code please fix it first. (lost extension for csv) 
-6. Create a classier for corresponding file **just one time**.
+6. Create a classier for corresponding file **just one time**, for more [information](http://www.ibm.com/watson/developercloud/doc/nl-classifier/data_format.shtml) for training data.
 ```javascript
+var params = {
+  language: '<language>',
+  name: '<classify-name>',
+  training_data: fs.createReadStream('<training_file>')
+};
 // Create Classifier
 natural_language_classifier.create(params, function(err, response) {
   if (err)
