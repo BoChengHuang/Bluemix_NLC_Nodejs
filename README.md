@@ -11,32 +11,72 @@ Use natural language classifier API on Bluemix by Node.js
 
 # How do I get set up? ###
 
-0. Read [IBM Watson Developer Cloud](https://www.ibm.com/watson/developercloud/doc/nl-classifier/) to know concept and flow. Sign up/in on [Bluemix](ng.bluemix.net) and crate a natural language classifier service with `usr/pwd`.
+Documentation: Read [IBM Watson Developer Cloud](https://www.ibm.com/watson/developercloud/doc/nl-classifier/) to know concept and flow. Sign up/in on [Bluemix](ng.bluemix.net) and crate a natural language classifier service with `usr/pwd`.
 
-1. Install nodejs on your computer: https://nodejs.org/en/
+# Preparation ###
 
-2. Oepn your Terminal/Command Line Tool.
+1. Apply a Bluemix account.
+2. Be familiar with Nodejs fundamentation.
 
-3. go to Project Path: 
-    ```cd /path```
+# Stage One - Set up service ###
 
-4. Install modeules: 
-    `npm install` (if you encouter permission problems: sudo npm install)
+1. Log in at [Bluemix](http://ng.bluemix.net) website.
+2. Go to catalog and find the NLC service.
+![Catalog](/screenshots/Catalog.png)
+3. Type a unique name for the service instance in the Service name field. Leave the default values for the other options.
+4. In your Service Credentials, bear in mind your *username* and *password*. 
+![Catalog](/screenshots/Credentials.png)
 
-4. run the project: 
-    `node index.js`
+# Stage Two - Create and train a classifier ###
 
-5. Open 127.0.0.1:3000 on your browser.
-
-6. You will see Sample page (non-funciton).
-
-7. Train you data by `node NLC.js` first (Training_data.csv).
-
-8. use your classifier_id in Web app or NLC.js.
-
-9. Enjoy it (Ask something).
-
-10. Remember Close the sever by Ctl+c
+1. Go to Nodejs SDK from [Github](https://github.com/watson-developer-cloud/node-sdk) page which is developed by IBM.
+2. Install node-nodule: 
+```
+$ npm install watson-developer-cloud --save
+```
+3. Go to **examples** and deep into the codes for *natural_language_classifier.v1.js*.
+4. Replace *username* and *password* Service Credentials on the previous stage.
+5. There is a bug in code please fix it first. (lost extension for csv) 
+6. Create a classier for corresponding file **just one time**.
+```javascript
+// Create Classifier
+natural_language_classifier.create(params, function(err, response) {
+  if (err)
+    console.log(err);
+  else
+    // copy the classifier_id from the response
+    console.log(JSON.stringify(response, null, 2));
+});
+```
+```
+$ node NLC.js
+```
+7. See the result, keep the **classifier_id** and comment classifier for the **create** function.
+8. You can see the status is “Training.” So you should wait for a few minutes.
+9.  Enter the **classifier_id** for using a classifier.
+```javascript
+// Using a Classifier
+natural_language_classifier.classify({
+  text: '<question>',
+  classifier_id: '<classifier_id>' }, // from the previous command
+  function(err, response) {
+    if (err)
+      console.log('error:', err);
+    else
+      console.log(JSON.stringify(response, null, 2));
+});
+```
+# Host a server to test ###
+0. ```cd to/path```
+1. Install modeules: 
+    ```$ npm install``` (if you encouter permission problems: sudo npm install)
+2. use your classifier_id in Web app or NLC.js.
+3. run the project: 
+    ```node index.js```
+4. Open **127.0.0.1:3000** on your browser.
+5. You will see Sample page.
+6. Enjoy it (Ask something).
+7. Remember Close the sever by Ctl+c
 
 # How to run program ###
 * Use CMD/Terminal
