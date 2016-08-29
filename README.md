@@ -30,10 +30,7 @@ Documentation: Read [IBM Watson Developer Cloud](https://www.ibm.com/watson/deve
 # Stage Two - Create and train a classifier ###
 
 1. Go to Nodejs SDK from [Github](https://github.com/watson-developer-cloud/node-sdk) page which is developed by IBM.
-2. Install node-nodule: 
-```
-$ npm install watson-developer-cloud --save
-```
+2. Install node-nodule:`$ npm install watson-developer-cloud --save`
 3. Go to **examples** and deep into the codes for *natural_language_classifier.v1.js*.
 4. Replace *username* and *password* Service Credentials on the previous stage.
 5. There is a bug in code please fix it first. (lost extension for csv) 
@@ -51,6 +48,7 @@ natural_language_classifier.create(params, function(err, response) {
 ```
 $ node NLC.js
 ```
+# Stage Three - use a classifier ###
 7. See the result, keep the **classifier_id** and comment classifier for the **create** function.
 8. You can see the status is “Training.” So you should wait for a few minutes.
 9.  Enter the **classifier_id** for using a classifier.
